@@ -108,12 +108,12 @@ workflows:
 
       - scan:
           requires:
-            - build
+            - test
 
       # Build-and-push job runs after the test job
       - build-and-push:
           requires:
-            - build
+            - test
 
       # Deploy job runs after the build-and-push job
       - pull-and-deploy:
