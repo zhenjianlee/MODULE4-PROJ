@@ -87,7 +87,7 @@ jobs:
 
 workflows:
   # Declare a workflow that runs on every push to the main branch
-  simple_workflow:
+  group5_workflow:
     jobs:
       # Build job triggered on changes to the main branch
       - build:
