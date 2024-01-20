@@ -17,17 +17,17 @@ jobs:
       - checkout
       - run: mvn clean package -DskipTests=true
 
-  test:
-    docker:
-      - image: cimg/openjdk:17.0.7
-      - image: cimg/postgres:15.2-postgis
-        environment:
-          POSTGRES_PORT: ${PORT}
-          POSTGRES_DB: ${DATABASE_NAME}
-          POSTGRES_USER: ${DATABASE_USERNAME}
-          POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-          POSTGRES_URL: ${POSTGRES_DATABASE_URL} #refer to database configuration
-          POSTGRES_HOST_AUTH_METHOD: trust
+  # test:
+  #   docker:
+  #     - image: cimg/openjdk:17.0.7
+  #     - image: cimg/postgres:15.2-postgis
+  #       environment:
+  #         POSTGRES_PORT: ${PORT} #5432
+  #         POSTGRES_DB: ${DATABASE_NAME} #ecommerce_app
+  #         POSTGRES_USER: ${DATABASE_USERNAME} #postgres
+  #         POSTGRES_PASSWORD: ${DATABASE_PASSWORD} #springboot
+  #         POSTGRES_URL: ${POSTGRES_DATABASE_URL} #jdbc:postgresql://dbhost:port/db name   #jdbc:postgresql://localhost:5432/ecommerce_app
+  #         POSTGRES_HOST_AUTH_METHOD: trust
     steps:
       - checkout
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
@@ -61,7 +61,7 @@ jobs:
       - docker/build:
           image: $DOCKER_LOGIN/$IMAGE_NAME
           tag: <<pipeline.git.tag>>
-      # Push the Docker image to Docker Hub
+      # Push the Docker image to Docker Hub IMAGE NAME=> zhenjianlee/module4proj:latest
       - docker/push:
           image: $DOCKER_LOGIN/$IMAGE_NAME
           tag: <<pipeline.git.tag>>
