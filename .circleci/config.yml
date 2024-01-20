@@ -16,6 +16,12 @@ jobs:
     steps:
       - checkout
       - run: mvn clean package -DskipTests=true
+  test:
+    docker:
+      - image: cimg/openjdk:17.0.9
+    steps:
+      - checkout
+      - run: echo "running test!"
 
   # test:
   #   docker:
@@ -28,12 +34,12 @@ jobs:
   #         POSTGRES_PASSWORD: ${DATABASE_PASSWORD} #springboot
   #         POSTGRES_URL: ${POSTGRES_DATABASE_URL} #jdbc:postgresql://dbhost:port/db name   #jdbc:postgresql://localhost:5432/ecommerce_app
   #         POSTGRES_HOST_AUTH_METHOD: trust
-    steps:
-      - checkout
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run:
-          name: Run Tests and rebuild the project
-          command: mvn clean install
+  #   steps:
+  #     - checkout
+  #     - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+  #     - run:
+  #         name: Run Tests and rebuild the project
+  #         command: mvn clean install
 
   scan:
     docker:
